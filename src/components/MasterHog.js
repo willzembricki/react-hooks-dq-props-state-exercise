@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import Master from "../assets/master-hog.png";
 import BabyHog from "./BabyHog";
-// import offspring from './data.js'
+import offspring from "../data.js";
 
 function MasterHog() {
   const [eyeColor, setEyeColor] = useState("blue");
@@ -10,12 +10,22 @@ function MasterHog() {
     setEyeColor(e.target.value);
   }
 
+  const babies = offspring.map((hog) => (
+    <BabyHog
+      key={hog.id}
+      name={hog.name}
+      hobby={hog.hobby}
+      eyeColor={eyeColor}
+    />
+  ));
+
   return (
     <div>
       <input
         type="radio"
         name="eyeColor"
         value="blue"
+        checked={eyeColor === "blue"}
         onChange={handleChangeEyeColor}
       />
       Blue<br></br>
@@ -23,6 +33,7 @@ function MasterHog() {
         type="radio"
         name="eyeColor"
         value="sun"
+        checked={eyeColor === "sun"}
         onChange={handleChangeEyeColor}
       />
       Sun<br></br>
@@ -30,6 +41,7 @@ function MasterHog() {
         type="radio"
         name="eyeColor"
         value="glowing"
+        checked={eyeColor === "glowing"}
         onChange={handleChangeEyeColor}
       />
       Glowing<br></br>
@@ -39,11 +51,7 @@ function MasterHog() {
       <div id="masters-domicile">
         <img id="master-blaster" src={Master} alt="" />
       </div>
-      <ul className="hoglist">
-        <BabyHog />
-        <BabyHog />
-        <BabyHog />
-      </ul>
+      <ul className="hoglist">{babies}</ul>
     </div>
   );
 }
